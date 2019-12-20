@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,10 +27,23 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
+<script>
+
+
+
+function searching(category){
+	var cate = category.textContent;
+	var url = "search.mc?search="+encodeURI(encodeURIComponent(cate));
+	location.href = url;
+
+}
+
+
+</script>
 <body>
 
 	<div class="site-wrap">
-		<header class="site-navbar" role="banner">
+			<header class="site-navbar" role="banner">
 			<div class="site-navbar-top">
 				<div class="container">
 					<div class="row align-items-center">
@@ -54,18 +69,29 @@
 							<div class="site-top-icons">
 								<ul>
 									<c:choose>
-                     <c:when test="${email == null }">
-                     <!-- Not loginned -->
-                        <li><a href="login.mc"><span class="icon icon-person"></span></a></li>
-                       <li>
-                    <a href="cart.mc" class="site-cart">
-                      <span class="icon icon-shopping_cart"></span>
-                    </a>
-                  </li>  
-                     </c:when>
-                     <c:otherwise>
-                     <!-- loginned -->
-                       <li><div class="d-flex">
+										<c:when test="${email == null }">
+											<!-- Not loginned -->
+											
+											<li>
+												<a href="login.mc"><span class="icon icon-person"></span></a></li>
+												
+											
+
+											<li><a href="cart.mc" class="site-cart"> <span
+													class="icon icon-shopping_cart"></span> <!--  ㅎㅎㅎㅎ --> <c:choose>
+														<c:when test="${count == null }">
+														</c:when>
+
+														<c:otherwise>
+															<span class="count">${count }</span>
+														</c:otherwise>
+													</c:choose>
+
+											</a></li>
+										</c:when>
+										<c:otherwise>
+											<!-- loginned -->
+											<li><div class="d-flex">
 									<div class="dropdown mr-1 ml-md-auto">
 										<button type="button"
 											class="btn btn-secondary btn-sm dropdown-toggle"
@@ -81,9 +107,9 @@
 										</div>
 									</div>
 									</div></li>
-                        <li><a href="logout.mc"><i class="fas fa-sign-out-alt"></i></a></li>
-                       <li>
-                    <a href="cart.mc" class="site-cart">
+											<li><a href="logout.mc"><i
+													class="fas fa-sign-out-alt"></i></a></li>
+											<li> <a href="cart.mc" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
                       <!--  ㅎㅎㅎㅎ --> <c:choose>
                                     <c:when test="${cartcount == null || cartcount ==0 }">
@@ -94,12 +120,13 @@
                                     </c:otherwise>
                                  </c:choose>
 
-                           </a>
-                  </li> 
-                     </c:otherwise>
-                  </c:choose>
-                  
-                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                           </a></li>
+										</c:otherwise>
+									</c:choose>
+
+									<li class="d-inline-block d-md-none ml-md-0"><a href="#"
+										class="site-menu-toggle js-menu-toggle"><span
+											class="icon-menu"></span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -111,7 +138,7 @@
 				role="navigation">
 				<div class="container">
 					<ul class="site-menu js-clone-nav d-none d-md-block">
-						<li class="has-children active"><a href="index.html">Home</a>
+						<li><a href="index.html">Home</a></li>
 							<!-- <ul class="dropdown">
 								<li><a href="#">Menu One</a></li>
 								<li><a href="#">Menu Two</a></li>
@@ -131,7 +158,7 @@
 							</ul></li>-->
 						<li><a href="shop.mc">Shop</a></li>
 						
-						<li><a href="#">New Arrivals</a></li>
+						
 						<li><a href="board.mc">Board</a></li>
 					</ul>
 				</div>
@@ -176,18 +203,13 @@
 						<div class="border p-4 rounded mb-4">
 							<h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
 							<ul class="list-unstyled mb-0">
-								<li class="has-children"><a href="#">Sub Menu</a>
+								<li class="has-children">
 									<ul class="dropdown">
-										<li><a href="#">Menu One</a></li>
-										<li><a href="#">Menu Two</a></li>
-										<li><a href="#">Menu Three</a></li>
+								
+										<li  id ="catelist"><a onclick="searching(this)" href="#">보드</a></li>
+										<li><a onclick="searching(this)" href="#">쉴드</a></li>
+										<li><a onclick="searching(this)" href="#">센서</a></li>
 									</ul></li>
-
-								<li class="has-children"><a href="shopcategory.mc"
-									class="d-flex"><span>Women</span> <span
-										class="text-black ml-auto"></span></a></li>
-								<li class="has-children"><a href="#" class="d-flex"><span>Children</span>
-										<span class="text-black ml-auto"></span></a></li>
 							</ul>
 						</div>
 						<!--FILTER BY PRICE -->
@@ -204,48 +226,9 @@
 					<div class="col-md-12">
 						<div class="site-section site-blocks-2">
 							<div class="row justify-content-center text-center mb-5">
-								<div class="col-md-7 site-section-heading pt-4">
-									<h2>Categories</h2>
-								</div>
+						
 							</div>
-							<div class="row">
-								<div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0"
-									data-aos="fade" data-aos-delay="">
-									<a class="block-2-item" href="#">
-										<figure class="image">
-											<img src="images/women.jpg" alt="" class="img-fluid">
-										</figure>
-										<div class="text">
-											<span class="text-uppercase">Collections</span>
-											<h3>아두이노</h3>
-										</div>
-									</a>
-								</div>
-								<div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
-									data-aos="fade" data-aos-delay="100">
-									<a class="block-2-item" href="#">
-										<figure class="image">
-											<img src="images/children.jpg" alt="" class="img-fluid">
-										</figure>
-										<div class="text">
-											<span class="text-uppercase">Collections</span>
-											<h3>라즈베리 파이</h3>
-										</div>
-									</a>
-								</div>
-								<div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
-									data-aos="fade" data-aos-delay="200">
-									<a class="block-2-item" href="#">
-										<figure class="image">
-											<img src="images/men.jpg" alt="" class="img-fluid">
-										</figure>
-										<div class="text">
-											<span class="text-uppercase">Collections</span>
-											<h3>센서</h3>
-										</div>
-									</a>
-								</div>
-							</div>
+					
 
 						</div>
 					</div>
@@ -254,7 +237,7 @@
 			</div>
 		</div>
 
-		<footer class="site-footer border-top">
+			<footer class="site-footer border-top">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 mb-5 mb-lg-0">
@@ -288,10 +271,10 @@
 					</div>
 					<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 						<h3 class="footer-heading mb-4">Promo</h3>
-						<a href="#" class="block-6"> <img src="images/hero_1.jpg"
+						<a href="https://www.google.com/search?q=Iot%EB%A5%BC+%EC%B0%BE%EC%9C%BC%EC%84%B8%EC%9A%94%3F&oq=Iot%EB%A5%BC+%EC%B0%BE%EC%9C%BC%EC%84%B8%EC%9A%94%3F&aqs=chrome..69i57.4819j1j7&sourceid=chrome&ie=UTF-8" class="block-6"> <img src="images/111.jpg"
 							alt="Image placeholder" class="img-fluid rounded mb-4">
 							<h3 class="font-weight-light  mb-0">Finding Your Perfect
-								Shoes</h3>
+								IoT</h3>
 							<p>Promo from nuary 15 &mdash; 25, 2019</p>
 						</a>
 					</div>
@@ -326,9 +309,7 @@
 							Copyright &copy;
 							<script data-cfasync="false"
 								src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-							<script>
-								document.write(new Date().getFullYear());
-							</script>
+							<script>document.write(new Date().getFullYear());</script>
 							All rights reserved | This template is made with <i
 								class="icon-heart" aria-hidden="true"></i> by <a
 								href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
